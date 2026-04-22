@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>ポートフォリオ</title>
+
+  <style>
+    body {
+      background-color: #f5f5f5;
+      font-family: Arial;
+      text-align: center;
+    }
+
+    h1 {
+      color: blue;
+    }
+
+    .container {
+      background: white;
+      padding: 20px;
+      margin: 20px auto;
+      width: 80%;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    input {
+      margin: 5px;
+      padding: 8px;
+    }
+
+    button {
+      padding: 8px 12px;
+      background: blue;
+      color: white;
+      border: none;
+      border-radius: 5px;
+    }
+
+    li {
+      list-style: none;
+      margin: 5px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <h1>仲條真登</h1>
+
+  <h2>自己紹介</h2>
+  <p>現在転職活動中。SNS運用の仕事に興味があります。</p>
+
+  <h2>目標</h2>
+  <p>人に影響を与えられる仕事をしたい。</p>
+
+  <h2>制作物</h2>
+  <p>筋トレ記録アプリを作成</p>
+
+  <div class="container">
+    <h2>筋トレ記録アプリ（JavaScript）</h2>
+
+    <input type="text" id="exercise" placeholder="種目">
+    <input type="number" id="weight" placeholder="重量">
+    <input type="number" id="reps" placeholder="回数">
+
+    <button onclick="addRecord()">追加</button>
+
+    <ul id="list"></ul>
+
+    <p>JavaScriptで作成し、localStorageでデータ保存機能を実装</p>
+  </div>
+
+  <script>
+  let records = JSON.parse(localStorage.getItem("records")) || [];
+
+  function displayRecords() {
+    const list = document.getElementById("list");
+    list.innerHTML = "";
+
+    records.forEach(record => {
+      const li = document.createElement("li");
+      li.textContent = record;
+      list.appendChild(li);
+    });
+  }
+
+  function addRecord() {
+    const exercise = document.getElementById("exercise").value;
+    const weight = document.getElementById("weight").value;
+    const reps = document.getElementById("reps").value;
+
+    const record = exercise + " " + weight + "kg " + reps + "回";
+
+    records.push(record);
+    localStorage.setItem("records", JSON.stringify(records));
+
+    displayRecords();
+  }
+
+  displayRecords();
+  </script>
+
+</body>
+</html>
